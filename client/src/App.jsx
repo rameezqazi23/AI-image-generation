@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
 
 import { Home, CreatePost } from './pages';
@@ -11,7 +11,9 @@ const App = () => {
 
     <Router>
       
-      <header className="w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]">
+      <header className="w-full flex justify-between items-center 
+      sticky top-0 left-0 right-0 z-10 sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]
+      bg-gray-200 backdrop-filter backdrop-blur-lg bg-opacity-70">
         <Link to='/'>
           <img className="w-28 object-contain" src={logo} alt="logo" />
         </Link>

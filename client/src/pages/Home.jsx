@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loader, FormField, Card } from '../components';
 
 
@@ -19,6 +19,8 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
   const [searchText, setSearchText] = useState('');
+  const [searchedResults, setSearchedResults] = useState(null);
+  const [searchTimeOut, setSearchTimeOut] = useState(null)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,8 +48,22 @@ const Home = () => {
 
     fetchPosts();
   }, [])
-  console.log("All posts==>", allPosts)
 
+  const handleSearch = (e) => {
+    clearTimeout(searchTimeOut)
+    setSearchText(e.target.value)
+
+    setSearchTimeOut(
+      //use debouncing for multiple requests
+      setTimeout(() => {
+        const searchResults = allPosts.filter((item) => (
+          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        ));
+        setSearchedResults(searchResults)
+      }, 500)
+    );
+  }
   return (
     <section className='max-w-7xl mx-auto'>
       <div>
@@ -60,7 +76,14 @@ const Home = () => {
       </div>
 
       <div className='mt-16'>
-        <FormField />
+        <FormField
+          labelName="Search Post"
+          type="text"
+          name="text"
+          value={searchText}
+          placeholder="Search Posts"
+          handleChange={handleSearch}
+        />
       </div>
 
       <div className='mt-10'>
@@ -73,14 +96,14 @@ const Home = () => {
             {searchText && (
               <h2 className='font-medium text-[#666e75] text-xl mb-3'>
                 Showing Results for
-                <span className='text-[#222328]'>{searchText}</span>
+                <span className='text-[#222328]'> {searchText}</span>
               </h2>
             )}
             <div className='grid lg:grid-cols-4 sm:grid-cols-3 cs:grid-cols-2 grid-cols-1 gap-3'>
               {searchText ? (
                 <RenderCards
                   title="No Search Results Found"
-                  data={[]}
+                  data={searchedResults}
                 />
               ) : (
                 <RenderCards

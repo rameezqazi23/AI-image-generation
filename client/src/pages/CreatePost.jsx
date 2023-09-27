@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getRandomPrompts } from '../utils';
 import { preview } from '../assets';
 import { useNavigate } from 'react-router-dom';
-import { FormField, Loader } from '../components';
+import { FormField } from '../components';
 import { Grid, ThreeDots } from 'react-loader-spinner';
 import { FiShare } from 'react-icons/fi';
 

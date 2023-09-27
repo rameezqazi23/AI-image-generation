@@ -1,5 +1,4 @@
-import React from 'react'
-import { download } from '../assets';
+// import React from 'react'
 import { downloadImage } from '../utils';
 import {PiDownloadBold} from 'react-icons/pi';
 
