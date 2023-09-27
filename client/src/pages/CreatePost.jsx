@@ -30,6 +30,7 @@ const CreatePost = () => {
         })
         const data = await response.json()
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
+        console.log("Prompt data==> ", form)
 
 
       } catch (error) {
@@ -43,9 +44,33 @@ const CreatePost = () => {
 
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (form.prompt && form.photo) {
+      setIsLoading(true)
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/post", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(form)
 
+        })
+        await response.json()
+        navigate('/')
+        console.log("Fetchiing data from db==>", response)
+
+      } catch (error) {
+        alert(error.message)
+      } finally {
+        setIsLoading(false)
+
+      }
+
+    } else {
+      alert("Please enter a promp and generate image")
+    }
   }
 
   const handleChange = (e) => {
@@ -161,13 +186,33 @@ const CreatePost = () => {
           </p>
           <button
             type='submit'
+            onClick={handleSubmit}
             className='flex justify-center items-center gap-2 mt-3 text-white bg-gradient-to-br from-blue-500 to-pink-500 font-medium 
           rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
-            Share with others <FiShare />
+            {isLoading ? (
+              <div className='flex flex-row items-center gap-2'>
+                Sharing
+                <ThreeDots
+                  height="20"
+                  width="20"
+                  radius="2"
+                  color="white"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              </div>
+
+            ) : (
+              <div className='flex flex-row items-center gap-2'>
+                Share with others <FiShare />
+              </div>
+            )}
+
           </button>
         </div>
       </form>
-
     </section>
   )
 }

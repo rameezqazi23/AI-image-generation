@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send(error?.response.data.error.message||'Something Went Wrong')
+        res.status(500).send(error?.response.data.error.message || 'Something Went Wrong')
 
     }
 

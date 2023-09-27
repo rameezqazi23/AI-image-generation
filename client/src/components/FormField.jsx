@@ -19,6 +19,7 @@ const FormField = ({labelName, type, name, placeholder, isSurpriseMe, value, han
       <input
         type={type}
         id={name}
+        name={name}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
