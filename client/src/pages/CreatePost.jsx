@@ -30,7 +30,7 @@ const CreatePost = () => {
         })
         const data = await response.json()
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
-        console.log("Prompt data==> ", form)
+        // console.log("Prompt data==> ", form)
 
 
       } catch (error) {
@@ -46,6 +46,7 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (form.prompt && form.photo) {
       setIsLoading(true)
       try {
@@ -68,7 +69,8 @@ const CreatePost = () => {
 
       }
 
-    } else {
+    } 
+    else {
       alert("Please enter a promp and generate image")
     }
   }
