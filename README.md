@@ -1,8 +1,5 @@
-Sure, here's a short "About Me" section for your GitHub project of the DALL-E image generation app built with the MERN stack using the DALL-E API and Cloudinary:
 
 ---
-
-**About Me**
 
 👋 Welcome to the DALL-E Image Generation App project! 🎨
 
